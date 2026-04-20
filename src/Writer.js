@@ -30,7 +30,7 @@ const LLMConfig = {
 export default async function writer (state) {
   const initialQuestion = 'LangGraph 구현 방식 설명과 예시 작성해줘'; 
   const newDraft = state.feedback? `[수정본] ${state.topic} - 반영된 피드백: ${state.feedback}` : initialQuestion;
-  LLMConfig.data.message[1] = {content: 'newDraft', role: 'user'}
+  LLMConfig.data.message[1] = {content: newDraft, role: 'user'}
   const res = await axios.request('<address>', LLMConfig);
   return {draft: res.data.choices[0].message};
 }
