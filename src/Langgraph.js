@@ -1,17 +1,17 @@
 import {StateGraph, END} from '@langchain/langgraph';
 
 const graphState = {
-  topic: {value (x,y) => y, default: () => ''},
-  draft: {value (x,y) => y, default: () => ''},
-  feedback: {value (x,y) => y, default: () => ''},
-  isApproved: {value (x,y) => y, default: () => false},
+  topic: {value: (x,y) => y, default: () => ''},
+  draft: {value: (x,y) => y, default: () => ''},
+  feedback: {value: (x,y) => y, default: () => ''},
+  isApproved: {value: (x,y) => y, default: () => false},
 };
 
 async function writerNode(state){
   console.log('[writer] 작성중');
   const newDraft = state.feedback ? `[수정본] ${state.topic} - 반영된 피드백: ${state.feedback}` : `[초안] ${state.topic}`;
 
-  retrun {draft: newDraft};
+  return {draft: newDraft};
 }
 
 async function reviewerNode(state){
