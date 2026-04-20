@@ -16,10 +16,6 @@ const LLMConfig = {
         가장 중요한 요인은 실행이 가능한지야
         개발 환경은 다음과 같아 - [Windows 11, nodejs 18 버전, 폐쇄망 환경, 패키지 다운로드는 가능하나 https 접근은 불가. 리눅스용 서버 보유]
         너의 출력 형태는 다음과 같아
-        출력: state = {
-          topic: <작성한 내용>,
-          feedback: '',
-        }
       `,
       'role': 'system',
     ],
@@ -34,5 +30,5 @@ export default async function writer (state) {
   const newDraft = state.feedback? `[수정본] ${state.topic} - 반영된 피드백: ${state.feedback}` : initialQuestion;
   LLMConfig.data.message[1] = {content: 'newDraft', role: 'user'}
   const res = await axios.request('<address>', LLMConfig);
-  return res.data.choices[0].message;
+  return {draft: res.data.choices[0].message};
 }
