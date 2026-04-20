@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const LLMConfig = {
   method : 'post',
-  header : {
+  headers : {
     'Authorization': 'Bearer',
     'Content-Type': 'application/json',
   },
