@@ -9,9 +9,17 @@ const graphState = {
 
 async function writerNode(state){
   console.log('[writer] 작성중');
-  const newDraft = state.feedback ? `[수정본] ${state.topic} - 반영된 피드백: ${state.feedback}` : `[초안] ${state.topic}`;
 
-  return {draft: newDraft};
+  let prompt = `다음의 주제로 글을 작성 : ${state.topic}`;
+  //const newDraft = state.feedback ? `[수정본] ${state.topic} - 반영된 피드백: ${state.feedback}` : `[초안] ${state.topic}`;
+
+  if(state.feedback){
+    prompt += `\n\n이전 작성본에 대한 피드백 존재. 해당 피드백 반영 필요 : ${state.feedback}`
+  }
+
+  const response = await ask(prompt);
+  
+  return {draft: response};
 }
 
 async function reviewerNode(state){
